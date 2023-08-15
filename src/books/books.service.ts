@@ -49,4 +49,8 @@ export class BooksService {
         return { updated : 1, book: updatedBook }
     }
 
+    deleteBook(id: string) {
+        this.books = [...this.books.filter(book => book.id !== id)]
+    }
+
 }
