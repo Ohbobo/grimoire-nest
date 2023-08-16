@@ -1,11 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Inject } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BooksDto } from './dto/books.dto';
 import { Book } from './interface/Book';
 
+
 @Controller('api/books')
 export class BooksController {
     constructor(private readonly booksService: BooksService) {}
+
+    //constructor(@Inject('BOOK_MODEL') private readonly bookModel: Model<Book>) {}
 
     @Get()
     getAllBooks(): Book[] {

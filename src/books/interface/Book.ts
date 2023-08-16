@@ -1,4 +1,6 @@
-export interface Book {
+import { Document } from "mongoose";
+
+export interface Book extends Document{
 
     id: string;
     // title: string;

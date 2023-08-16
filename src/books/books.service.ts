@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BooksDto } from './dto/books.dto';
 import { Book } from './interface/Book';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class BooksService {
-
+    constructor(@Inject('BOOK_MODEL') private readonly bookModel: Model<Book>) {}
     books: Book[] = [
         {
             id: "1",
@@ -24,6 +25,10 @@ export class BooksService {
     findAll(): Book[] {
         return this.books;
     }
+
+    // async findAll(): Promise<Book[]> {
+    //     return this.bookModel.find().exec();
+    // }
 
     findOneBook(id: string) {
         return this.books.find(book => book.id === id)
