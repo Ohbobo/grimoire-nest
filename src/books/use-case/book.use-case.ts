@@ -1,25 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { Book } from '../core/book-entities';
-import { IDataServices } from '../core/data/data-service';
+import { IBookRepository } from '../core/repository/book-repository';
 
 @Injectable()
 export class BookUseCase {
-    constructor(private repository: IDataServices) {}
+    constructor(@Inject('IBookRepository') private readonly bookRepository: IBookRepository) {}
 
-    getAllBooks(): Promise<Book[]> {
-        return this.repository.books.getAll();
+    async getAllBooks(): Promise<Book[]> {
+        return this.bookRepository.findAll();
     }
 
-    getOneBook(id: string): Promise<Book> {
-        return this.repository.books.getById(id);
+    async getOneBook(id: string): Promise<Book> {
+        return this.bookRepository.findById(id);
     }
 
     async create(book: Book): Promise<Book> {
-        try {
-            const createBook = await this.repository.books.create(book);
-            return createBook;
-        } catch (error) {
-            throw error;
-        }
+        this.bookRepository.createBook(book);
+        return book;
     }
 }
