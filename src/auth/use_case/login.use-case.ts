@@ -14,7 +14,7 @@ export class AuthLoginUseCase {
             return null;
         }
 
-        const token = jwt.sign({userId: user.id}, 'RANDOM_SECRET_KEY', {expiresIn: '1h'});
+        const token = jwt.sign({ userId: user.id }, 'RANDOM_SECRET_KEY', {expiresIn: '1h'});
 
         return {userId: user.id, token}
     }

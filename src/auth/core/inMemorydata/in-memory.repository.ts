@@ -17,6 +17,11 @@ export class InMemoryRepository implements IAuthRepository {
         };
         this.users.push(fakeUser)
     }
+
+    async createUser(user: User): Promise<User> {
+        
+    }
+
     async login(email: string, password: string): Promise<User | null> {
         const user = this.users.find(user => user.email === email);
         if(!user){

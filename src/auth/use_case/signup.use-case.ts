@@ -7,13 +7,14 @@ import * as bcrypt from 'bcrypt';
 export class SignupUseCase {
     constructor(@Inject('InMemoryRepository') private readonly authRepository: IAuthRepository) {}
 
-    async signup(email: string, password: string): Promise<User> {
+    async signup(email: string, password: string): Promise<void> {
         const hash = await bcrypt.hash(password, 10);
 
         const newUser: User = {
             email: email,
             password: hash,
         };
-        return this.authRepository.createUser(newUser);
+       
+        await this.authRepository.createUser(newUser);
     }
 }
